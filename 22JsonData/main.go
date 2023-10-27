@@ -17,6 +17,8 @@ func main() {
 	fmt.Println("Welcome to a session on Json Data in Go")
 	EncodeJson()
 
+	DecodeJson()
+
 }
 
 func EncodeJson() {
@@ -32,5 +34,30 @@ func EncodeJson() {
 		panic(err)
 	}
 	fmt.Printf("%s\n", finalJson)
+}
 
+func DecodeJson() {
+	jsonDataFromWeb := []byte(`
+		 {
+                "coursename": "ReactRJ Bootcamp",
+                "Price": 299,
+                "website": "PyroPrep",
+                "tags": [
+                        "webdev",
+                        "js"
+                ]
+        }
+	`)
+
+	var pyroPrepCourse course
+
+	checkVaile := json.Valid(jsonDataFromWeb)
+
+	if checkVaile {
+		fmt.Printf("JSON was valid")
+		json.Unmarshal(jsonDataFromWeb, &pyroPrepCourse)
+		fmt.Printf("%#v\n", pyroPrepCourse)
+	} else {
+		fmt.Printf("JSON WAS NOT VALID")
+	}
 }
