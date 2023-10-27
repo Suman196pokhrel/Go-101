@@ -9,9 +9,11 @@ import (
 
 func main() {
 	fmt.Println("Welcome to a session on Interacting with web servers")
-	const myUrl string = "http://localhost:8000/get"
+	const myGETUrl string = "http://localhost:8000/get"
+	const myPOSTUrl string = "http://localhost:8000/post"
 
-	PerformGetRequest(myUrl)
+	PerformGetRequest(myGETUrl)
+	PerformPostJSONRequest(myPOSTUrl)
 
 }
 
@@ -35,4 +37,25 @@ func PerformGetRequest(url string) {
 
 	fmt.Println("Byte count is : ", byteCount)
 	fmt.Println(responseString.String())
+}
+
+func PerformPostJSONRequest(url string) {
+	// fake json payload
+	requestBody := strings.NewReader(`
+		{
+			"coursename":"Golang Complete Tutorial",
+			"price":110,
+			"platform":"pyroprep"
+		}
+	`)
+
+	respose, err := http.Post(url, "application/json", requestBody)
+
+	if err != nil {
+		panic(err)
+	}
+	defer respose.Body.Close()
+	content, _ := io.ReadAll(respose.Body)
+
+	fmt.Println("POST RESPONSE => ", string(content))
 }
