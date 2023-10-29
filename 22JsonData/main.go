@@ -60,4 +60,5 @@ func DecodeJson() {
 	} else {
 		fmt.Printf("JSON WAS NOT VALID")
 	}
+
 }
