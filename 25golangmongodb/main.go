@@ -2,15 +2,18 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/suman/25golangmongodb/router"
 )
 
 func main() {
-	fmt.Println("A full features golang app integrated with mongoDb")
+	fmt.Println("MongoDb API Server")
+	fmt.Println("Server booting up . . .")
 
-	r := mux.NewRouter()
+	r := router.Router()
 
-	http.ListenAndServe(":8888", r)
+	log.Fatal(http.ListenAndServe(":8888", r))
+	fmt.Println("Listening at port 8888")
 }
